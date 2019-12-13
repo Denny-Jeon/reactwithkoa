@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./Chapter5/5.2/5.2.3/Count";
+import App from "./Chapter5/5.2/5.2.4/Count";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(<App />, document.getElementById("root"));

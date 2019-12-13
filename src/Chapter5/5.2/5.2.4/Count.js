@@ -2,6 +2,9 @@
 
 import React from "react";
 
+// recompose의 compose 함수 import
+import { compose } from "recompose";
+
 // count와 handleIncrease를 갖는 withCount import
 import withCount from "./withCount";
 // squareTimes, squareValue, handleIncreaseTimes, handleDecreaseTimes, handleSquare를 갖는 withSquare import
@@ -54,4 +57,7 @@ const Count = ({
 );
 
 // withSquare, withCount HoC를 포함한 컴포넌트를 export.
-export default withSquare(withCount(Count));
+export default compose(
+  withSquare,
+  withCount,
+)(Count);

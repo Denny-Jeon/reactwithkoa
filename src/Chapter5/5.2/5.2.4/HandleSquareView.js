@@ -2,6 +2,7 @@
 
 import React from "react";
 
+// 함수형 컴포넌트
 /**
  * @param  {number} count
  * @param  {function} handleIncreaseTimes

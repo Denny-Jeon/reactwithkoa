@@ -13,32 +13,39 @@ const withSquare = (WrappedComponent) => {
     };
 
     // 몇 배로 곱할건지 설정하는 함수
-    handleSetTimes = ({ times }) => {
-      const { value } = this.state;
+    handleIncreaseTimes = () => {
+      const { times } = this.state;
       this.setState({
-        times,
-        value,
+        times: times + 1,
+      });
+    }
+
+    // count에 times 배수를 수행하는 함수
+    handleDecreaseTimes = () => {
+      const { times } = this.state;
+      this.setState({
+        times: times - 1,
       });
     }
 
     // count에 times 배수를 수행하는 함수
     handleSquare = ({ count }) => {
       const { times } = this.state;
-
       this.setState({
-        times,
         value: Math.pow(count, times),
       });
     }
 
     render() {
-      const { value } = this.state;
+      const { times, value } = this.state;
       return (
         // 인자로 전달받은 WrappedComponent에
         // count와 handeIncrease를 prop으로 전달
         <WrappedComponent
+          squareTimes={times}
           squareValue={value}
-          handleSetTimes={this.handleSetTimes}
+          handleIncreaseTimes={this.handleIncreaseTimes}
+          handleDecreaseTimes={this.handleDecreaseTimes}
           handleSquare={this.handleSquare}
           {...this.props}
         />
