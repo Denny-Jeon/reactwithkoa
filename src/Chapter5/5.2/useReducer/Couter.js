@@ -31,6 +31,11 @@ const reducer = (oldState, action) => {
   }
 };
 
+const init = (arg) => ({
+  count: 0,
+  currentTime: `현재 시각은 ${new Date()} 입니다.`,
+});
+
 const CountReducer = () => {
 //   // useState을 이용해 count를 관리한다.
 //   const [count, setCount] = useState(0);
@@ -39,6 +44,7 @@ const CountReducer = () => {
   //   const [currentTime, setCurrentTime] = useState(`현재 시각은 ${new Date()} 입니다.`);
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  // const [state, dispatch] = useReducer(reducer, {}, init);
 
   return (
     <div>
