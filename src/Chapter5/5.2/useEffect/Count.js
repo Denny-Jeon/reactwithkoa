@@ -9,31 +9,35 @@ import HandleView from "./HandleView";
 const Count = () => {
   // useState을 이용해 count를 관리한다.
   const [count, setCount] = useState(0);
-  const [evenOrOdd, setEvenOrOdd] = useState(true);
 
-  console.log("abc", count, evenOrOdd);
+  // useState을 이용해 page를 관리한다.
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
-    console.log(123);
+    console.log("Run only once, like componentDidMount");
+  }, []);
 
-    if (count % 2 === 0) {
-      setEvenOrOdd(true);
-    } else {
-      setEvenOrOdd(false);
-    }
+  useEffect(() => {
+    console.log("Run this effect if count is changed, like componentDidUpdate");
+  }, [count]);
+
+  useEffect(() => {
+    console.log("Run every render componentDidUpdate");
   });
+
+  useEffect(() => () => console.log("Run only ComponentWillUnmount."),
+    []);
 
   return (
     <div>
       <div> Hello, JSX</div>
       {/* count를 props으로 전송 */}
-      <CountView count={count} />
-      {/* handleIncrease props으로 전송 */}
-      <HandleView handleIncrease={() => setCount((prevCount) => prevCount + 1)} />
+      Count: <CountView count={count} />
+      Page: <CountView count={page} />
 
-      <div>
-        {evenOrOdd ? "짝수" : "홀수"}
-      </div>
+      {/* handleIncrease props으로 전송 */}
+      Count: <HandleView handleIncrease={() => setCount((prevCount) => prevCount + 1)} />
+      Page: <HandleView handleIncrease={() => setPage((prevPage) => prevPage + 1)} />
     </div>
   );
 };
