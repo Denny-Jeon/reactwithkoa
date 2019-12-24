@@ -10,7 +10,7 @@ const Count = () => {
   // useState을 이용해 count를 관리한다.
   const [count, setCount] = useState(0);
 
-  // useState을 이용해 count를 관리한다.
+  // useState을 이용해 page를 관리한다.
   const [page, setPage] = useState(0);
 
   useEffect(() => {
@@ -25,10 +25,8 @@ const Count = () => {
     console.log("Run every render componentDidUpdate");
   });
 
-  useEffect(() =>
-    //  console.log("");
-    () => console.log("Run only ComponentWillUnmount."),
-  []);
+  useEffect(() => () => console.log("Run only ComponentWillUnmount."),
+    []);
 
   return (
     <div>
