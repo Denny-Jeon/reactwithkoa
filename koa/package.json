@@ -17,8 +17,8 @@
     "eslint-plugin-react": "^7.17.0",
     "nodemon": "^2.0.2"
   },
-  "scripts": {
-    "start": "nodemon --exec babel-node -- src/index.js"
+  "scripts": {    
+    "start": "nodemon node src/index.js"
   },
   "author": "",
   "description": ""
