@@ -1,17 +1,27 @@
 {
+    // ESLint에서 사용하는 파서 선택 - Esprima, Babel-ESLint, @typescript-eslint/parser 중 하나
     "parser": "babel-eslint",
+    // ESLint Rule에 대한 확정 버전을 지정 - airbnb로 설정
     "extends": "airbnb",
+    // 사용하고자 하는 규칙들에 대한 플러그인 설정
     "plugins": ["react", "jsx-a11y", "import", "json"],
+    // 자바스크립트 언어 옵션: default ES5
     "parserOptions": {
         "ecmaVersion": 2016,
         "sourceType": "module"
     },
+    // 사전에 정의된 전역변수 설정: 아래 3개 이외에도 다양한 변수가 존재한다.
     "env": {
-        "es6": true,
-        "browser": true,
-        "node": true
+        "es6": true, // enable all ECMAScript 6 features except for modules
+        "browser": true, // browser global variables.
+        "node": true //Node.js global variables and Node.js scoping.
     },
+    // rules에 대한 구성 및 변경
+    // "off" or 0 - turn the rule off
+    // "warn" or 1 - turn the rule on as a warning (doesn't affect exit code)
+    // "error" or 2 - turn the rule on as an error (exit code is 1 when triggered)
     "rules": {
+        // 문잘열은 double quotes로 설정하는 rule
         "quotes": [
             "error",
             "double",
@@ -19,30 +29,37 @@
                 "avoidEscape": true
             }
         ],
+        // indent는 공백 4
         "indent": ["error", 4],
-        "react/prefer-stateless-function": 0,
-        "react/jsx-one-expression-per-line": 0,
+        // react/prefer-stateless-function 기능 off
+        "react/prefer-stateless-function": "off",
+        // react/jsx-one-expression-per-line 기능 off
+        "react/jsx-one-expression-per-line": "off",
+        // jsx 파일 허용 규칙: .js, .jsx 모두 허용
         "react/jsx-filename-extension": [
-            1,
+            "warn",
             {
                 "extensions": [".js", ".jsx"]
             }
         ],
+        // 밑줄 허용 규칙 적용: _id는 허용
         "no-underscore-dangle": [
-            1,
+            "warn",
             {
                 "allow": ["_id"]
             }
         ],
+        // 최대 길이 설정: 최대 80자, 탭 4글자, url 포함 라인 무시
         "max-len": [
-            2,
+            "error",
             {
                 "code": 80,
                 "tabWidth": 4,
                 "ignoreUrls": true
             }
         ],
-        "linebreak-style": 0,
-        "eslint linebreak-style": [0, "error", "windows"]
+        // 글자 무시, 설정
+        "linebreak-style": "off",
+        "eslint linebreak-style": ["off", "error", "windows"]
     }
 }
