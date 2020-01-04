@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./Chapter5/5.2/useRef/Function/StopWatchViewer";
+import App from "./Chapter5/5.2/useLayoutEffect/TimerEffect";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(<App />, document.getElementById("root"));
