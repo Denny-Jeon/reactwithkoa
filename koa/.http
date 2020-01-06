@@ -1,4 +1,4 @@
 @HOST=http://localhost:3002
 
 
-GET {{HOST}}
+GET {{HOST}}/hello

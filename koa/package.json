@@ -9,6 +9,9 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.3",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.19.1",
@@ -17,8 +20,8 @@
     "eslint-plugin-react": "^7.17.0",
     "nodemon": "^2.0.2"
   },
-  "scripts": {    
-    "start": "nodemon node src/index.js"
+  "scripts": {
+    "start": "nodemon --exec babel-node src/index.js"
   },
   "author": "",
   "description": ""
