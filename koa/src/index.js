@@ -3,6 +3,7 @@ import Koa from "koa";
 const app = new Koa();
 const port = 3002;
 
+console.log(app);
 
 app.use(async (ctx) => {
     ctx.body = "Hello World";
