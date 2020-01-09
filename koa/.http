@@ -1,4 +1,11 @@
 @HOST=http://localhost:3002
 
 
-GET {{HOST}}/hello
+GET {{HOST}}/
+
+GET {{HOST}}/conditional_error/ok
+
+GET {{HOST}}/conditional_error/nok
+
+GET {{HOST}}/unknown
+
