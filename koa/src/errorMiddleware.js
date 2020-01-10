@@ -1,5 +1,6 @@
 import Koa from "koa";
 import KoaCompose from "koa-compose";
+import Boom from "boom";
 
 const app = new Koa();
 const port = 3002;
@@ -9,16 +10,24 @@ const errorHandlerMd = async (ctx, next) => {
     try {
         // 하위 미들웨어 처리 대기
         await next();
+        // 페이지를 찾지 못한 경우 404 에러 발생
+        if (ctx.status === 404) {
+            throw Boom.notFound("missing");
+        }
     } catch (err) {
-        // ctx.throw, ctx.asset, throw new Error(...)이 발생한 경우
-        // err의 status 값을 response의 status로 설정
-        ctx.status = err.status || 500;
-        // err의 메시지 내용을 body에 저장
-        ctx.body = {
-            message: err.message || "Unknown Error",
-        };
+        // boom에서 발생한 output.statusCode를 ctx.status로 설정
+        ctx.status = (err.output && err.output.statusCode)
+            ? err.output.statusCode : 500;
 
-        // 에러 로그등을 저장하기 위한 error event 발생
+        // boom에서 발생한 output.payload를 ctx.body로 설정
+        ctx.body = (err.output && err.output.payload)
+            ? err.output.payload : {
+                statusCode: ctx.status,
+                error: "Internal Server Error",
+                message: "Unknown Error",
+            };
+
+        // 이벤트 emit
         ctx.app.emit("error", err, ctx);
     }
 };
@@ -33,31 +42,26 @@ const indexMd = async (ctx, next) => {
 // 경로에 따라 에러를 발생하는 generateThrowMd 미들웨어
 const generateThrowMd = async (ctx, next) => {
     // 경로가 /condition_error/ok이면 ok 메시지 출력.
-    let ret = ctx.path === "/conditional_error/ok"
+    const ret = ctx.path === "/conditional_error/ok"
         ? ctx.body = "ok" : null;
     if (!ret) {
-        // 경로가 /condition_error/nok이면 ctx.throw롤 500에러 발생,
+        // 경로가 /condition_error/nok이면 Boom.badImplementation 500에러 발생,
         // 경로가 /condition_error/nok가 아니면 하위 미들웨어 처리 대기
-        ret = ctx.path === "/conditional_error/nok"
-            ? ctx.throw(500, "Generate Error")
-            : await next();
+        if (ctx.path === "/conditional_error/nok") {
+            throw Boom.badImplementation("Generate Error");
+        }
+        await next();
     }
 
     return "";
 };
 
-// 경로를 찾을 수 없어서 404 에러를 발생시키는 notFound 미들웨어
-const notFoundMd = async (ctx) => {
-    // 경로를 찾을 수 없어서 ctx.throw로 404 에러 발생
-    ctx.throw(404, "Not found");
-};
 
 // middleware 배열 생성
 const middlewares = [
     errorHandlerMd,
     indexMd,
     generateThrowMd,
-    notFoundMd,
 ];
 
 // KoaCompose를 이용하여 미들웨어 등록

@@ -1,6 +1,7 @@
 @HOST=http://localhost:3002
 
 
+// errorMiddleware
 GET {{HOST}}/
 
 GET {{HOST}}/conditional_error/ok
@@ -9,3 +10,29 @@ GET {{HOST}}/conditional_error/nok
 
 GET {{HOST}}/unknown
 
+
+// koaRouter
+GET {{HOST}}/
+POST {{HOST}}/
+
+
+GET {{HOST}}/api/1
+GET {{HOST}}/api/2
+
+GET {{HOST}}/all
+POST {{HOST}}/all
+PUT {{HOST}}/all
+DELETE {{HOST}}/all
+HEAD {{HOST}}/all
+OPTIONS {{HOST}}/all
+
+GET {{HOST}}/multiple/middleware
+
+GET {{HOST}}/router2/2/router1/1
+POST {{HOST}}/router2/2/router1/1
+
+GET {{HOST}}/prefix/router3/1
+GET {{HOST}}/router3/1
+
+GET {{HOST}}/prefix/redirect
+GET {{HOST}}/prefix/redirect2
