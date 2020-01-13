@@ -1,7 +1,9 @@
 import Koa from "koa";
 // koa-router import
 import KoaRouter from "koa-router";
+// 주어진 미들웨어를 결합한 후 미들웨어를 리턴하는 모듈
 import KoaCompose from "koa-compose";
+// HTTP와 유사한 에러 객체를 리턴하는 모듈
 import Boom from "boom";
 
 // koa 인스턴스 생성
@@ -94,7 +96,7 @@ const routerMd2 = async (ctx) => {
     ctx.body = `${ctx.body} -> routerMd2`;
 };
 // 다수의 라우터 미들웨어를 갖는 라우터 생성
-router.get("/multiple/middleware", routerMd1, routerMd2);
+router.get("/multiple/middleware", KoaCompose([routerMd1, routerMd2]));
 
 
 // router1, router2 다중 라우터 생성
@@ -109,8 +111,7 @@ router1.get("/router1/:id1", async (ctx, next) => {
 // 중첩 라우터 생성: router1을 포함하는 중첩 라우터 router2 생성
 // 중첩 라우터의 호출 -> /router2/first/router3/second
 router2.use("/router2/:id2",
-    routerRoutesMd(router1),
-    routerAllowMethodsMd(router1));
+    routerRoutesMd(router1), routerAllowMethodsMd(router1));
 
 // koa 인스턴스에 중첩 라우터 등록
 app.use(routerRoutesMd(router2));
@@ -124,7 +125,7 @@ router3.get("/router3/:id", async (ctx, next) => {
     ctx.body = `prefix router -${ctx.params.id}`;
 });
 // koa 인스턴스에 prefix 라우터 등록
-app.use(routerRoutesMd(router3), routerAllowMethodsMd(router3));
+app.use(KoaCompose([routerRoutesMd(router3), routerAllowMethodsMd(router3)]));
 
 
 // redirect 경로 이동: router에서 직접 router.redirect(sourece, dest) 하는 방법,
