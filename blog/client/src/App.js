@@ -1,12 +1,11 @@
 import React from "react";
-import { Navbar, NavbarBrand } from "reactstrap";
 
-const App = () => (
-  <>
-    <Navbar color="dark" dark expand="md">
-      <NavbarBrand href="/">reactstrap</NavbarBrand>
-    </Navbar>
-  </>
-);
+function App() {
+  return (
+    <div className="App">
+      Welcome blog
+    </div>
+  );
+}
 
 export default App;
