@@ -1,7 +1,9 @@
 import React from "react";
 
 const ContentMain = () => (
-  <div />
+  <div>
+    Content Main
+  </div>
 );
 
 

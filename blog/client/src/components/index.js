@@ -1,10 +1,9 @@
-import ContentMain from "./ContentMain";
-import Footer from "./Footer";
-import Header from "./Header";
+import { Header, ContentMain, Footer } from "./Layout";
 
 
 export {
+  // Layout
+  Header,
   ContentMain,
   Footer,
-  Header,
 };
