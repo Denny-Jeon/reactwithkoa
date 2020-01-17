@@ -10,6 +10,8 @@ const View = ({
     initialValues={initialValues}
     onSubmit={handleSubmit}
     validationSchema={handleValidateSchema()}
+    // validateOnMount 옵션 추가 : Mount 시 validate 수행
+    validateOnMount
   >
     {/* render prop을 사용하지 않고 합성으로 처리 */}
     {

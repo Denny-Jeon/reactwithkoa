@@ -2,7 +2,6 @@ import React from "react";
 import { Form, ErrorMessage } from "formik";
 import PropTypes from "prop-types";
 
-
 const FormikTest = ({
   handleSubmit,
   handleReset,
@@ -38,6 +37,7 @@ const FormikTest = ({
     { (errors.password && touched.password) && (<div>ErrorMessage: <ErrorMessage name="password" /></div>) }
     { (errors.password && touched.password) && (<div>{errors.password}</div>)}
 
+    {/* 성별 추가 : radio 테스트 */}
     <div>
       Gender:
       <input
@@ -56,6 +56,8 @@ const FormikTest = ({
       />Female
     </div>
 
+
+    {/* sns 추가: checkbox 테스트  */}
     <div>
       SNS:
       <input
@@ -86,6 +88,8 @@ const FormikTest = ({
     { (errors.sns && touched.sns) && (<div>ErrorMessage: <ErrorMessage name="sns" /></div>) }
     { (errors.sns && touched.sns) && (<div>{errors.sns}</div>)}
 
+
+    {/* 나이 추가 : select 테스트 */}
     <div>
       나이:
       <select
@@ -103,8 +107,10 @@ const FormikTest = ({
     { (errors.age && touched.age) && (<div>ErrorMessage: <ErrorMessage name="age" /></div>) }
     { (errors.age && touched.age) && (<div>{errors.age}</div>)}
 
-    <button type="submit">제출</button>
+
+    <button type="submit" disabled={!isValid || isSubmitting}>제출</button>
     <button type="reset">취소</button>
+    <div>{isValid}</div>
   </Form>
 );
 

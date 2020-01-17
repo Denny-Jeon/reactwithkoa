@@ -18,8 +18,12 @@ export default compose(
     age: 10,
   }),
   withHandlers({
-    handleSubmit: (props) => (values) => {
+    handleSubmit: (props) => (values, { setSubmitting }) => {
       console.log(values);
+
+      setTimeout(() => {
+        setSubmitting(false);
+      }, 5000);
     },
     handleValidateSchema: (prop) => () => (
       Yup.object().shape({
