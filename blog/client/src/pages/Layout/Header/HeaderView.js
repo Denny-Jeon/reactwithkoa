@@ -5,14 +5,12 @@ import {
   NavbarToggler,
   Collapse,
   Nav,
-  Form,
-  Input,
-  Button,
 } from "reactstrap";
 import { NavLink as RRDNavLink } from "react-router-dom";
 import PropTypes from "prop-types";
-// NavItemWrapper를 import
 import { NavItemWrapper } from "../../../components";
+// Search 컴포넌트 import
+import Search from "./components/Search";
 
 const HeaderView = ({ open, setToggle }) => (
   <>
@@ -21,16 +19,10 @@ const HeaderView = ({ open, setToggle }) => (
       <NavbarToggler onClick={setToggle} />
       <Collapse isOpen={open} navbar>
         <Nav className="mr-auto" navbar>
-
-          {/* NavItemWrapper 컴포넌트를 이용하여 메뉴를 변경 */}
           <NavItemWrapper to="/blog/list">글 목록</NavItemWrapper>
           <NavItemWrapper to="/blog/post">글 쓰기</NavItemWrapper>
         </Nav>
-
-        <Form inline className="my-2 my-log-0">
-          <Input type="search" placeholder="Search" className="mr-sm-2" />
-          <Button type="submit" className="my-2 my-sm-0" color="success">검색</Button>
-        </Form>
+        <Search />
       </Collapse>
     </Navbar>
   </>
