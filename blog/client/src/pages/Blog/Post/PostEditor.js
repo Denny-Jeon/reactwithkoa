@@ -1,6 +1,6 @@
 import React from "react";
 import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { Container } from "reactstrap";
 
 
 function uploadImageCallBack(file) {
@@ -24,22 +24,29 @@ function uploadImageCallBack(file) {
   );
 }
 
-const EditorImage = () => (
-  <Editor
-    wrapperClassName="demo-wrapper"
-    editorClassName="demo-editor"
-    localization={{
-      locale: "ko",
-    }}
-    toolbar={{
-      inline: { inDropdown: true },
-      list: { inDropdown: true },
-      textAlign: { inDropdown: true },
-      link: { inDropdown: true },
-      history: { inDropdown: true },
-      image: { uploadCallback: uploadImageCallBack, alt: { present: true, mandatory: true } },
-    }}
-  />
+const EditorImage = ({ editorState, handleEditorStateChange }) => (
+  <Container>
+    <p />
+    <div className="demo-section">
+      <Editor
+        wrapperClassName="demo-wrapper"
+        editorClassName="demo-editor"
+        editorState={editorState}
+        localization={{
+          locale: "ko",
+        }}
+        toolbar={{
+          inline: { inDropdown: true },
+          list: { inDropdown: true },
+          textAlign: { inDropdown: true },
+          link: { inDropdown: true },
+          history: { inDropdown: true },
+          image: { uploadCallback: uploadImageCallBack, alt: { present: true, mandatory: true } },
+        }}
+        onEditorStateChange={handleEditorStateChange}
+      />
+    </div>
+  </Container>
 );
 
 

@@ -1,9 +1,12 @@
 import React from "react";
 import PostEditor from "./PostEditor";
 
-const PostView = () => (
+const PostView = ({ editorState, handleEditorStateChange }) => (
   <div>
-    <PostEditor />
+    <PostEditor
+      editorState={editorState}
+      handleEditorStateChange={handleEditorStateChange}
+    />
   </div>
 );
 
