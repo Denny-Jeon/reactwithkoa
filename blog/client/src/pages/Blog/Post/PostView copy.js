@@ -31,7 +31,7 @@ const EditorImage = ({ editorState, handleEditorStateChange }) => (
       <Editor
         wrapperClassName="demo-wrapper"
         editorClassName="demo-editor"
-        editorState={editorState}
+        // editorState={editorState}
         localization={{
           locale: "ko",
         }}
@@ -41,7 +41,7 @@ const EditorImage = ({ editorState, handleEditorStateChange }) => (
           textAlign: { inDropdown: true },
           link: { inDropdown: true },
           history: { inDropdown: true },
-          image: { uploadCallback: uploadImageCallBack, alt: { present: true, mandatory: true } },
+          // image: { uploadCallback: uploadImageCallBack, alt: { present: true, mandatory: true } },
         }}
         onEditorStateChange={handleEditorStateChange}
       />
