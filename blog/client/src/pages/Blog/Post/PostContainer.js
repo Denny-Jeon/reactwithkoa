@@ -6,6 +6,7 @@ import {
 // 에디터 상태를 초기화하거나 설정하는 EditorState import
 import { EditorState, convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
+import Axios from "axios";
 import PostView from "./PostView";
 
 export default compose(
@@ -23,12 +24,18 @@ export default compose(
       props.setEditorState(editorState);
     },
     // 저장 버튼을 클릭하는 경우, 콘솔에 제목과 editorState 정보 출력
-    handleSubmit: (props) => () => {
+    handleSubmit: (props) => async () => {
       const newBlog = {
         title: props.title,
         content: draftToHtml(convertToRaw(props.editorState.getCurrentContent())),
       };
-      console.log(newBlog);
+
+      try {
+        const response = await Axios.post("/api/app/v1/blog", newBlog);
+        console.log(response.status);
+      } catch (err) {
+        console.log(err);
+      }
     },
   }),
 )(PostView);

@@ -1,0 +1,17 @@
+# 서버 주소
+@SERVER=http://localhost:3002
+# BASE URL 정보
+@BASEURL=/api/app/v1
+
+
+// blog GET Method
+GET {{SERVER}}{{BASEURL}}/blog
+
+// blog POST Method
+POST {{SERVER}}{{BASEURL}}/blog
+Content-Type: application/json
+
+{
+    "title": "title",
+    "content": "content"
+}
