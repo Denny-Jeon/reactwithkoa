@@ -3,9 +3,12 @@ import KoaCompose from "koa-compose";
 import Boom from "boom";
 import KoaBody from "koa-body";
 import Router from "./router";
+import * as Database from "./database";
 
 const app = new Koa();
 const port = 3002;
+
+Database.connect();
 
 const errorHandlerMd = async (ctx, next) => {
     try {

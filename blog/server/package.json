@@ -22,7 +22,10 @@
     "koa": "^2.11.0",
     "koa-body": "^4.1.1",
     "koa-compose": "^4.1.0",
-    "koa-router": "^8.0.6"
+    "koa-router": "^8.0.6",
+    "moment": "^2.24.0",
+    "sql-template-strings": "^2.2.2",
+    "sqlite": "^3.0.3"
   },
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js"

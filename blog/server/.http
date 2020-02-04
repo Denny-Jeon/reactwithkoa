@@ -7,7 +7,7 @@
 // blog GET Method
 GET {{SERVER}}{{BASEURL}}/blog
 
-// blog POST Method
+// blog POST Method 데이터 추가 (title, content)
 POST {{SERVER}}{{BASEURL}}/blog
 Content-Type: application/json
 
