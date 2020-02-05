@@ -1,13 +1,9 @@
-# 서버 주소
+﻿# 서버 주소
 @SERVER=http://localhost:3002
 # BASE URL 정보
 @BASEURL=/api/app/v1
 
-
-// blog GET Method
-GET {{SERVER}}{{BASEURL}}/blog
-
-// blog POST Method 데이터 추가 (title, content)
+# 1. 블로그 글쓰기 데이터 추가 요청
 POST {{SERVER}}{{BASEURL}}/blog
 Content-Type: application/json
 
@@ -15,3 +11,30 @@ Content-Type: application/json
     "title": "title",
     "content": "content"
 }
+
+# 2. 아래 GET 요청의 응답을 저장할 blog 변수 선언 (@name blog)
+# @name blog
+GET {{SERVER}}{{BASEURL}}/blog
+# blog 변수에 저장된 body 데이터 중 첫번째([0]) id 추출하여 blogId로 저장 (@blogId=~~~)
+@blogId = {{blog.response.body.$.[0].id}}
+
+# 3. blogId에 저장된 id 값으로 GET 요청
+GET {{SERVER}}{{BASEURL}}/blog/{{blogId}}
+
+# 4. blogId에 저장된 id 값으로 PUT 요청
+PUT {{SERVER}}{{BASEURL}}/blog/{{blogId}}
+Content-Type: application/json
+
+{ 
+    "title": "updated title",
+    "content": "updated content"
+}
+
+# 5. blogId에 저장된 id 값으로 GET 요청
+GET {{SERVER}}{{BASEURL}}/blog
+
+# 6. blogId에 저장된 id 값으로 DELETE 요청
+DELETE {{SERVER}}{{BASEURL}}/blog/{{blogId}}
+
+# 7. 블로그 데이터 조회 요청
+GET {{SERVER}}{{BASEURL}}/blog
