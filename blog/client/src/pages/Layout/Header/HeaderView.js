@@ -21,7 +21,7 @@ const HeaderView = ({ open, setToggle }) => (
         <NavbarToggler onClick={setToggle} />
         <Collapse isOpen={open} navbar>
           <Nav className="mr-auto" navbar>
-            <NavItemWrapper to="/blog/list">글 목록</NavItemWrapper>
+            <NavItemWrapper to="/blog/list?search=">글 목록</NavItemWrapper>
             <NavItemWrapper to="/blog/post">글 쓰기</NavItemWrapper>
           </Nav>
           <Search />
