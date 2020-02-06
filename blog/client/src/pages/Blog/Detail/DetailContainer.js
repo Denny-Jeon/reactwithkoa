@@ -20,7 +20,7 @@ export default compose(
       try {
         const response = await Axios.delete(`/api/app/v1/blog/${data.id}`);
         if (response.status === 204) {
-          history.push("/blog/list");
+          history.push("/blog/list?search=");
         }
       } catch (err) {
         console.log(err);

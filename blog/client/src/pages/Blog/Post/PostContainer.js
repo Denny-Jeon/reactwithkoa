@@ -29,7 +29,7 @@ export default compose(
       try {
         const response = await Axios.post("/api/app/v1/blog", newBlog);
         if (response.status === 201) {
-          history.push("/blog/list");
+          history.push("/blog/list?search=");
         }
       } catch (err) {
         console.log(err);
