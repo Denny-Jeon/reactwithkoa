@@ -18,17 +18,11 @@ export const post = async (ctx) => {
 
 
 export const get = async (ctx) => {
-    let statement;
-
-    // if (ctx.query.search.length > 0) {
     const search = `%${ctx.query.search}%`;
-    statement = await ctx.state.db.all(SQL`
+    const statement = await ctx.state.db.all(SQL`
             SELECT * 
             FROM Blog 
             WHERE title like ${search}`);
-    // } else {
-    //     statement = await ctx.state.db.all(SQL`SELECT * FROM Blog`);
-    // }
     if (!statement) throw Boom.badRequest("bad Request");
 
     ctx.status = 200;
