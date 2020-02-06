@@ -1,24 +1,22 @@
-// import React from "react";
-import { compose, withState, withHandlers } from "recompose";
-// 필드 유효성 검증을 위한 yup 모듈 import
+import {
+  compose, withState, withHandlers,
+} from "recompose";
 import * as Yup from "yup";
+import { withRouter } from "react-router-dom";
 import SearchView from "./SearchView";
 
 export default compose(
-  // 초기화 값
+  withRouter,
   withState("initialValues", "setInitialValues", {
     search: "",
   }),
   withHandlers({
-    // 검색 버튼 클릭 시 동작
-    handleSubmit: () => (values, { setSubmitting }) => {
-      console.log(values);
+    handleSubmit: (props) => (values, { setSubmitting }) => {
+      const { history } = props;
+      setSubmitting(false);
 
-      setTimeout(() => {
-        setSubmitting(false);
-      }, 5000);
+      history.replace(`/blog/list?search=${values.search}`);
     },
-    // 유효성 검증
     handleValidateSchema: () => () => (
       Yup.object().shape({
         search: Yup.string(),
