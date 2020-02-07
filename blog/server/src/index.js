@@ -1,57 +1,39 @@
-import Koa from "koa";
-import KoaCompose from "koa-compose";
-import Boom from "boom";
-import KoaBody from "koa-body";
-import Router from "./router";
+import PEvent from "p-event";
 import * as Database from "./database";
+import { app, createServerAndListen } from "./app";
 
-const app = new Koa();
-const port = 3002;
 
-Database.connect();
-
-const errorHandlerMd = async (ctx, next) => {
+const main = async () => {
+    let server = null;
     try {
-        await next();
-        if (ctx.status === 404) {
-            throw Boom.notFound("missing");
-        }
+        await Database.connect();
+        server = await createServerAndListen(app, 3002, "0.0.0.0");
+        console.log("Server is listening on: 0.0.0.0:3002");
+
+        await Promise.race([
+            ...["SIGINT", "SIGHUP", "SIGTERM"].map((s) => PEvent(process, s, {
+                rejectionEvents: ["uncaughtException", "unhandledRejection"],
+            })),
+        ]);
     } catch (err) {
-        ctx.status = (err.output && err.output.statusCode)
-            ? err.output.statusCode : 500;
+        process.exitCode = 1;
+        console.log(err);
+    } finally {
+        console.log(server);
+        if (server) {
+            console.log("Close server");
+            await server.stop();
+            console.log("Server closed");
+        }
 
-        ctx.body = (err.output && err.output.payload)
-            ? err.output.payload : {
-                statusCode: ctx.status,
-                error: "Internal Server Error",
-                message: "Unknown Error",
-            };
+        console.log("Close database");
+        await Database.disconnect();
+        console.log("Database closed");
 
-        ctx.app.emit("error", err, ctx);
+        setTimeout(() => process.exit(), 10000).unref();
     }
 };
 
-const routerRoutesMd = (r) => r.routes();
-const routerAllowMethodsMd = (r) => r.allowedMethods({
-    throw: true,
-    notImplemented: () => Boom.notImplemented("that method is not allowed"),
-    methodNotAllowed: () => Boom.methodNotAllowed("that method is not allowed"),
-});
 
-
-const middlewares = [
-    KoaBody(),
-    errorHandlerMd,
-    routerRoutesMd(Router),
-    routerAllowMethodsMd(Router),
-
-];
-
-app.use(KoaCompose(middlewares));
-
-
-app.on("error", (err, ctx) => {
-    console.log(`${new Date()} ${ctx.status}: ${ctx.body.message}`);
-});
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+main();
+// App();

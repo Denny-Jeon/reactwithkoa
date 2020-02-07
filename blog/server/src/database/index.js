@@ -3,7 +3,7 @@ import sqlite from "sqlite";
 
 let db = null;
 
-export const connect = async (dbname = "./blog.sqlite") => {
+const connect = async (dbname = "./blog.sqlite") => {
     try {
         db = await sqlite.open(dbname);
         await db.migrate({ force: "last" });
@@ -15,7 +15,7 @@ export const connect = async (dbname = "./blog.sqlite") => {
 };
 
 
-export const disconnect = async () => {
+const disconnect = async () => {
     try {
         if (db) await db.close();
         console.log("Close the database connection.");
@@ -25,7 +25,13 @@ export const disconnect = async () => {
 };
 
 
-export const setCtxState = async (ctx, next) => {
+const setCtxState = async (ctx, next) => {
     ctx.state.db = db;
     await next();
+};
+
+export {
+    connect,
+    disconnect,
+    setCtxState,
 };

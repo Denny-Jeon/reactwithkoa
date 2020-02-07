@@ -18,7 +18,7 @@ export const post = async (ctx) => {
 
 
 export const get = async (ctx) => {
-    const search = `%${ctx.query.search}%`;
+    const search = ctx.query.search ? `%${ctx.query.search}%` : "%%";
     const statement = await ctx.state.db.all(SQL`
             SELECT * 
             FROM Blog 

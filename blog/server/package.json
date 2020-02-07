@@ -24,10 +24,14 @@
     "koa-compose": "^4.1.0",
     "koa-router": "^8.0.6",
     "moment": "^2.24.0",
+    "p-event": "^4.1.0",
     "sql-template-strings": "^2.2.2",
-    "sqlite": "^3.0.3"
+    "sqlite": "^3.0.3",
+    "stoppable": "^1.1.0"
   },
   "scripts": {
-    "start": "nodemon --exec babel-node src/index.js"
+    "start": "nodemon --exec babel-node src/index.js",
+    "build": "mkdir dist && babel src -d dist",
+    "serve": "node dist/index.js"
   }
 }
