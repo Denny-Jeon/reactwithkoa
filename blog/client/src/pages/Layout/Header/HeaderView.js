@@ -9,18 +9,21 @@ import {
 } from "reactstrap";
 import { NavLink as RRDNavLink } from "react-router-dom";
 import PropTypes from "prop-types";
+import { faBold } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavItemWrapper } from "../../../components";
-// Search 컴포넌트 import
 import Search from "./components/Search";
 
 const HeaderView = ({ open, setToggle }) => (
   <>
-    <Navbar color="primary" dark expand="md" className="sticky-top">
+    <Navbar color="white" light expand="md" className="main-header sticky-top">
       <Container>
-        <NavbarBrand tag={RRDNavLink} exact to="/">홈</NavbarBrand>
-        <NavbarToggler onClick={setToggle} />
-        <Collapse isOpen={open} navbar>
-          <Nav className="mr-auto" navbar>
+        <NavbarBrand tag={RRDNavLink} exact to="/" className="brand-text font-weight-light">
+          <FontAwesomeIcon icon={faBold} />log{" "}
+        </NavbarBrand>
+        <NavbarToggler className="order-1" onClick={setToggle} />
+        <Collapse className="order-3" isOpen={open} navbar>
+          <Nav navbar>
             <NavItemWrapper to="/blog/list?search=">글 목록</NavItemWrapper>
             <NavItemWrapper to="/blog/post">글 쓰기</NavItemWrapper>
           </Nav>
@@ -31,7 +34,6 @@ const HeaderView = ({ open, setToggle }) => (
   </>
 );
 
-// 타입 체크 구문, 컴포넌트.propTypes로 전달되는 props의 타입을 체크
 HeaderView.propTypes = {
   open: PropTypes.bool,
   setToggle: PropTypes.func.isRequired,

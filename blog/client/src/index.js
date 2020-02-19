@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "./assets/adminlte3/adminlte.min.css";
 import "./assets/editor.css";
 
 import React from "react";

@@ -3,9 +3,13 @@ import {
   Form,
   Input,
   Button,
+  InputGroup,
+  InputGroupAddon,
 } from "reactstrap";
 import { Formik } from "formik";
 import PropTypes from "prop-types";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SearchForm = ({
   handleSubmit,
@@ -14,17 +18,24 @@ const SearchForm = ({
   values,
   isSubmitting,
 }) => (
-  <Form onSubmit={handleSubmit} inline className="my-2 my-log-0">
-    <Input
-      type="search"
-      name="search"
-      onChange={handleChange}
-      onBlur={handleBlur}
-      value={values.search}
-      placeholder="검색어를 입력해 주세요."
-      className="mr-sm-2"
-    />
-    <Button type="submit" disabled={isSubmitting} className="my-2 my-sm-0" color="success">검색</Button>
+  <Form onSubmit={handleSubmit} inline className="ml-auto">
+    <InputGroup size="sm">
+      <Input
+        type="search"
+        name="search"
+        onChange={handleChange}
+        onBlur={handleBlur}
+        value={values.search}
+        placeholder="검색어를 입력해 주세요."
+        className="form-control-navbar"
+      />
+      <InputGroupAddon addonType="append">
+        <Button type="submit" disabled={isSubmitting} className="btn-navbar">
+          <FontAwesomeIcon icon={faSearch} />
+        </Button>
+      </InputGroupAddon>
+    </InputGroup>
+
   </Form>
 );
 

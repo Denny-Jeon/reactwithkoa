@@ -4,15 +4,18 @@ import { Container } from "reactstrap";
 import {
   Header, ContentMain, Footer,
 } from "./pages";
+import { StyleWrapper } from "./components";
 
 const App = () => (
-  <BrowserRouter>
-    <Header />
-    <Container>
-      <ContentMain />
-      <Footer />
-    </Container>
-  </BrowserRouter>
+  <StyleWrapper className="wrapper">
+    <BrowserRouter>
+      <Header />
+      <Container>
+        <ContentMain />
+        <Footer />
+      </Container>
+    </BrowserRouter>
+  </StyleWrapper>
 );
 
 export default App;
