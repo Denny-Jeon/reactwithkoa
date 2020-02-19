@@ -22,7 +22,8 @@ export const get = async (ctx) => {
     const statement = await ctx.state.db.all(SQL`
             SELECT * 
             FROM Blog 
-            WHERE title like ${search}`);
+            WHERE title like ${search}
+            ORDER BY createdAt desc`);
     if (!statement) throw Boom.badRequest("bad Request");
 
     ctx.status = 200;
