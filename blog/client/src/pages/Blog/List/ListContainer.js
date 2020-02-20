@@ -29,13 +29,7 @@ export default compose(
     },
     componentDidUpdate(prevProps) {
       const { location, searchList } = this.props;
-      // console.log(location.search);
-      // console.log(prevProps.location.search);
-      console.log(location);
-      console.log(prevProps.location);
-      console.log(location === prevProps.location);
       if (location !== prevProps.location) {
-        console.log("call");
         searchList();
       }
     },

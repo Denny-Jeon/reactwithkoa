@@ -1,14 +1,14 @@
-// PostView.js 컴포넌트
+// PostView.js
 import React from "react";
 import { Editor } from "react-draft-wysiwyg";
-import { Container, Input, Button } from "reactstrap";
+import { Input, Button } from "reactstrap";
 import PropTypes from "prop-types";
+import { Page } from "../../../components";
 
-// 글목록 이동을 위한 history 추가
 const PostView = ({
   editorState, handleChange, handleSubmit, handleEditorStateChange, history,
 }) => (
-  <Container>
+  <Page title="글작성">
     <p />
     <Input type="text" name="title" id="title" placeholder="제목" onChange={handleChange} />
     <p />
@@ -34,7 +34,7 @@ const PostView = ({
     <Button onClick={handleSubmit}>저장</Button>{" "}
     {/* 글작성 취소시 글목록이로  이동 */}
     <Button type="button" onClick={() => history.goBack()}>글작성 취소</Button>
-  </Container>
+  </Page>
 );
 
 PostView.propTypes = {

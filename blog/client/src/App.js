@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import { Container } from "reactstrap";
 import {
   Header, ContentMain, Footer,
 } from "./pages";
@@ -10,10 +9,8 @@ const App = () => (
   <StyleWrapper className="wrapper">
     <BrowserRouter>
       <Header />
-      <Container>
-        <ContentMain />
-        <Footer />
-      </Container>
+      <ContentMain />
+      <Footer />
     </BrowserRouter>
   </StyleWrapper>
 );

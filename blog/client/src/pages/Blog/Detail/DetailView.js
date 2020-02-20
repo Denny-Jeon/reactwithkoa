@@ -1,12 +1,13 @@
 import React from "react";
-import { Container, Button } from "reactstrap";
+import { Button } from "reactstrap";
 import PropTypes from "prop-types";
 import ReactHtmlParser from "react-html-parser";
+import { Page } from "../../../components";
 
 const DetailView = ({
   data, match, history, removeContent,
 }) => (
-  <Container>
+  <Page title="글보기">
     <h1>{data.title}</h1>
     <p />
     <hr />
@@ -17,7 +18,7 @@ const DetailView = ({
     <Button type="button" onClick={() => history.goBack()}>글목록</Button>{" "}
     <Button type="button" onClick={() => history.push(`/blog/update/${match.params.id}`)}>글수정</Button>{" "}
     <Button type="button" onClick={removeContent}>글삭제</Button>
-  </Container>
+  </Page>
 );
 
 DetailView.propTypes = {

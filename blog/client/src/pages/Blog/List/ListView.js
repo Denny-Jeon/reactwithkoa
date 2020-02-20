@@ -1,12 +1,13 @@
 import React from "react";
 import {
-  Container, Row, Col,
+  Row, Col,
 } from "reactstrap";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { Page } from "../../../components";
 
 const ListView = ({ data }) => (
-  <Container>
+  <Page title="글목록">
     <Row>
       { data.map((item) => (
         <Col key={item.id} xs="12" style={{ marginTop: "30px" }}>
@@ -17,8 +18,7 @@ const ListView = ({ data }) => (
         </Col>
       ))}
     </Row>
-
-  </Container>
+  </Page>
 );
 
 ListView.propTypes = {
