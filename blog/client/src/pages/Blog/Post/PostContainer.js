@@ -7,6 +7,7 @@ import draftToHtml from "draftjs-to-html";
 import Axios from "axios";
 import { withRouter } from "react-router-dom";
 import PostView from "./PostView";
+import { getDescription } from "../../../util";
 
 export default compose(
   withRouter,
@@ -21,9 +22,11 @@ export default compose(
     },
     handleSubmit: (props) => async () => {
       const { history } = props;
+
       const newBlog = {
         title: props.title,
         content: draftToHtml(convertToRaw(props.editorState.getCurrentContent())),
+        description: getDescription(props.editorState),
       };
 
       try {

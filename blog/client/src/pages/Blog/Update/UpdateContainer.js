@@ -9,6 +9,7 @@ import draftToHtml from "draftjs-to-html";
 import Axios from "axios";
 import { withRouter } from "react-router-dom";
 import UpdateView from "./UpdateView";
+import { getDescription } from "../../../util";
 
 export default compose(
   withRouter,
@@ -23,15 +24,18 @@ export default compose(
     },
     handleSubmit: (props) => async () => {
       const { history, match } = props;
+
       const updateBlog = {
         title: props.title,
         content: draftToHtml(convertToRaw(props.editorState.getCurrentContent())),
+        description: getDescription(props.editorState),
       };
 
       try {
         const response = await Axios.put(`/api/app/v1/blog/${match.params.id}`, updateBlog);
         if (response.status === 200) {
-          history.push(`/blog/item/${match.params.id}`);
+          // history.push(`/blog/item/${match.params.id}`);
+          history.goBack();
         }
       } catch (err) {
         console.log(err);

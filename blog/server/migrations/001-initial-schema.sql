@@ -1,4 +1,5 @@
 -- Up
+
 CREATE TABLE Blog (
     -- primary key 필드
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -11,3 +12,5 @@ CREATE TABLE Blog (
 );
 
 -- Down
+
+DROP TABLE Blog

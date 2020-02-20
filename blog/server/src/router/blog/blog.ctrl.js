@@ -3,13 +3,13 @@ import SQL from "sql-template-strings";
 import Moment from "moment";
 
 export const post = async (ctx) => {
-    const { title, content } = ctx.request.body;
+    const { title, content, description } = ctx.request.body;
     const createdAt = Moment().format("YYYY-MM-DD HH:mm:ss");
 
     const statement = await ctx.state.db.run(
         SQL`INSERT INTO 
-            Blog (title, content, createdAt) 
-            VALUES (${title}, ${content}, ${createdAt})`,
+            Blog (title, content, description, createdAt) 
+            VALUES (${title}, ${content}, ${description}, ${createdAt})`,
     );
     if (!statement) throw Boom.badRequest("bad Request");
 
@@ -35,7 +35,7 @@ export const getOne = async (ctx) => {
     const { id } = ctx.params;
 
     const statement = await ctx.state.db.get(
-        SQL`SELECT id, title, content, createdAt 
+        SQL`SELECT id, title, content, description, createdAt 
             FROM Blog
             WHERE id=${id}`,
     );
@@ -47,11 +47,11 @@ export const getOne = async (ctx) => {
 
 export const put = async (ctx) => {
     const { id } = ctx.params;
-    const { title, content } = ctx.request.body;
+    const { title, content, description } = ctx.request.body;
 
     const statement = await ctx.state.db.run(
         SQL`UPDATE Blog 
-            SET title=${title}, content=${content}
+            SET title=${title}, content=${content}, description=${description}
             WHERE id=${id}`,
     );
 
