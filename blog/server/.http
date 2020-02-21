@@ -31,7 +31,7 @@ Content-Type: application/json
 }
 
 # 5. blogId에 저장된 id 값으로 GET 요청
-GET {{SERVER}}{{BASEURL}}/blog
+GET {{SERVER}}{{BASEURL}}/blog?start=0&size=2
 
 # 6. blogId에 저장된 id 값으로 DELETE 요청
 DELETE {{SERVER}}{{BASEURL}}/blog/{{blogId}}
