@@ -1,7 +1,9 @@
 // UpdateView.js 컴포넌트
 import React from "react";
 import { Editor } from "react-draft-wysiwyg";
-import { Input, Button } from "reactstrap";
+import {
+  FormGroup, Label, Input, Button, Card, CardHeader, CardBody, CardFooter, CardTitle, Col,
+} from "reactstrap";
 import PropTypes from "prop-types";
 import { Page } from "../../../components";
 
@@ -10,31 +12,44 @@ const UpdateView = ({
   title, editorState, handleChange, handleSubmit, handleEditorStateChange, history,
 }) => (
   <Page title="글수정">
-    <p />
-    <Input type="text" name="title" id="title" placeholder="제목" onChange={handleChange} value={title} />
-    <p />
-    <div className="demo-section">
-      <Editor
-        wrapperClassName="demo-wrapper"
-        editorClassName="demo-editor"
-        editorState={editorState}
-        localization={{
-          locale: "ko",
-        }}
-        toolbar={{
-          inline: { inDropdown: true },
-          list: { inDropdown: true },
-          textAlign: { inDropdown: true },
-          link: { inDropdown: true },
-          history: { inDropdown: true },
-        }}
-        onEditorStateChange={handleEditorStateChange}
-      />
-    </div>
-    <p />
-    <Button onClick={handleSubmit}>수정</Button>{" "}
-    {/* 글작성 취소시 글목록으로  이동 */}
-    <Button type="button" onClick={() => history.goBack()}>글수정 취소</Button>
+    <Card className="card-warning">
+      <CardHeader>
+        <CardTitle className="card-title">{title}</CardTitle>
+      </CardHeader>
+      <CardBody>
+        <FormGroup row>
+          <Label for="title" sm={2}>제목</Label>
+          <Col sm={10}>
+            <Input type="text" name="title" id="title" placeholder="제목" onChange={handleChange} value={title} />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label for="demo-editor" sm={2}>내용</Label>
+          <Col sm={10}>
+            <Editor
+              wrapperClassName="demo-wrapper"
+              editorClassName="demo-editor"
+              editorState={editorState}
+              localization={{
+                locale: "ko",
+              }}
+              toolbar={{
+                inline: { inDropdown: true },
+                list: { inDropdown: true },
+                textAlign: { inDropdown: true },
+                link: { inDropdown: true },
+                history: { inDropdown: true },
+              }}
+              onEditorStateChange={handleEditorStateChange}
+            />
+          </Col>
+        </FormGroup>
+      </CardBody>
+      <CardFooter>
+        <Button size="sm" color="primary" onClick={handleSubmit}>수정</Button>{" "}
+        <Button size="sm" type="button" onClick={() => history.goBack()}>글수정 취소</Button>
+      </CardFooter>
+    </Card>
   </Page>
 );
 

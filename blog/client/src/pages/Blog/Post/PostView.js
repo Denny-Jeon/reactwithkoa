@@ -1,7 +1,9 @@
 // PostView.js
 import React from "react";
 import { Editor } from "react-draft-wysiwyg";
-import { Input, Button } from "reactstrap";
+import {
+  FormGroup, Label, Input, Button, Card, CardBody, CardFooter, Col,
+} from "reactstrap";
 import PropTypes from "prop-types";
 import { Page } from "../../../components";
 
@@ -9,31 +11,41 @@ const PostView = ({
   editorState, handleChange, handleSubmit, handleEditorStateChange, history,
 }) => (
   <Page title="글작성">
-    <p />
-    <Input type="text" name="title" id="title" placeholder="제목" onChange={handleChange} />
-    <p />
-    <div className="demo-section">
-      <Editor
-        wrapperClassName="demo-wrapper"
-        editorClassName="demo-editor"
-        editorState={editorState}
-        localization={{
-          locale: "ko",
-        }}
-        toolbar={{
-          inline: { inDropdown: true },
-          list: { inDropdown: true },
-          textAlign: { inDropdown: true },
-          link: { inDropdown: true },
-          history: { inDropdown: true },
-        }}
-        onEditorStateChange={handleEditorStateChange}
-      />
-    </div>
-    <p />
-    <Button onClick={handleSubmit}>저장</Button>{" "}
-    {/* 글작성 취소시 글목록이로  이동 */}
-    <Button type="button" onClick={() => history.goBack()}>글작성 취소</Button>
+    <Card className="card-warning">
+      <CardBody>
+        <FormGroup row>
+          <Label for="title" sm={2}>제목</Label>
+          <Col sm={10}>
+            <Input type="text" name="title" id="title" placeholder="제목" onChange={handleChange} />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label for="demo-editor" sm={2}>내용</Label>
+          <Col sm={10}>
+            <Editor
+              wrapperClassName="demo-wrapper"
+              editorClassName="demo-editor"
+              editorState={editorState}
+              localization={{
+                locale: "ko",
+              }}
+              toolbar={{
+                inline: { inDropdown: true },
+                list: { inDropdown: true },
+                textAlign: { inDropdown: true },
+                link: { inDropdown: true },
+                history: { inDropdown: true },
+              }}
+              onEditorStateChange={handleEditorStateChange}
+            />
+          </Col>
+        </FormGroup>
+      </CardBody>
+      <CardFooter>
+        <Button size="sm" color="primary" onClick={handleSubmit}>저장</Button>{" "}
+        <Button size="sm" type="button" onClick={() => history.goBack()}>글작성 취소</Button>
+      </CardFooter>
+    </Card>
   </Page>
 );
 

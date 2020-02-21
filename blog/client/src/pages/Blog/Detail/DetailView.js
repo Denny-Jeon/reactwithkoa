@@ -1,23 +1,33 @@
 import React from "react";
-import { Button } from "reactstrap";
+import {
+  Button, Card, CardHeader, CardBody, CardFooter, CardTitle,
+} from "reactstrap";
 import PropTypes from "prop-types";
 import ReactHtmlParser from "react-html-parser";
-import { Page } from "../../../components";
+import {
+  Page, StyleWrapper,
+} from "../../../components";
 
 const DetailView = ({
   data, match, history, removeContent,
 }) => (
   <Page title="글보기">
-    <h1>{data.title}</h1>
-    <p />
-    <hr />
-    {ReactHtmlParser(data.content)}
-    <br />
-    {data.createdAt}
-    <hr />
-    <Button type="button" onClick={() => history.goBack()}>글목록</Button>{" "}
-    <Button type="button" onClick={() => history.push(`/blog/update/${match.params.id}`)}>글수정</Button>{" "}
-    <Button type="button" onClick={removeContent}>글삭제</Button>
+    <Card className="card-warning">
+      <CardHeader>
+        <CardTitle className="card-title">{data.title}</CardTitle>
+      </CardHeader>
+      <CardBody>
+        {ReactHtmlParser(data.content)}
+        <StyleWrapper class="text-muted mt-3">
+          {data.createdAt}
+        </StyleWrapper>
+      </CardBody>
+      <CardFooter>
+        <Button size="sm" color="primary" type="button" onClick={() => history.goBack()}>글목록</Button>{" "}
+        <Button size="sm" color="info" type="button" onClick={() => history.push(`/blog/update/${match.params.id}`)}>글수정</Button>{" "}
+        <Button size="sm" color="success" type="button" onClick={removeContent}>글삭제</Button>
+      </CardFooter>
+    </Card>
   </Page>
 );
 
