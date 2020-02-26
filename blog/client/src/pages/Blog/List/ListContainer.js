@@ -1,68 +1,67 @@
 // ListContainer.js 컴포넌트
 import {
-  compose, lifecycle, withState, withHandlers,
+  compose, lifecycle, withHandlers,
 } from "recompose";
 import { withRouter } from "react-router-dom";
-import Axios from "axios";
 import ListView from "./ListView";
+import { withBlog } from "../../../components";
 
 export default compose(
   withRouter,
-  withState("paging", "setPaging", {
-    offset: 0,
-    size: 5,
-  }),
-  withState("data", "setData", {
-    total: 0,
-    items: [],
-  }),
+  withBlog,
   withHandlers({
     searchList: (props) => async () => {
       const {
-        paging, setData, history,
+        blogPaging, blogAction, blogSearch,
       } = props;
       try {
-        const response = await Axios.get(`/api/app/v1/blog${history.location.search}&offset=${paging.offset}&size=${paging.size}`);
-        if (response.status === 200) {
-          setData(response.data);
-        }
+        const params = `search=${blogSearch}&offset=${blogPaging.offset}&size=${blogPaging.size}`;
+        await blogAction.search(params);
       } catch (err) {
         console.log(err);
       }
     },
   }),
   withHandlers({
-    handlePaging: (props) => async (selectedPage) => {
-      const { paging, setPaging, searchList } = props;
+    actionList: (props) => async (offset, size) => {
+      const { blogAction, searchList } = props;
+
       const newPaging = {
-        offset: (selectedPage - 1) * paging.size,
-        size: paging.size,
+        offset,
+        size,
       };
-      setPaging(newPaging, () => searchList());
+      await blogAction.setPaging(newPaging);
+      await searchList();
+    },
+  }),
+  withHandlers({
+    handlePaging: (props) => async (selectedPage) => {
+      const { blogPaging, actionList } = props;
+      await actionList((selectedPage - 1) * blogPaging.size, blogPaging.size);
     },
     setPagingSize: (props) => async (e) => {
-      const { paging, setPaging, searchList } = props;
-      if (e.target.value === paging.size) return;
-
-      console.log(e.target.value, paging.size);
-      const newPaging = {
-        offset: 0,
-        size: parseInt(e.target.value, 10),
-      };
-      console.log(newPaging);
-      setPaging(newPaging, () => searchList());
+      const { blogPaging, actionList } = props;
+      if (e.target.value === blogPaging.size) return;
+      await actionList(0, parseInt(e.target.value, 10));
+    },
+    refreshContent: (props) => async () => {
+      const { blogPaging, actionList } = props;
+      await actionList(0, blogPaging.size);
     },
   }),
   lifecycle({
     async componentDidMount() {
       const { searchList } = this.props;
-      searchList();
+      await searchList();
     },
-    componentDidUpdate(prevProps) {
-      const { location, searchList } = this.props;
-      if (location !== prevProps.location) {
-        searchList();
+    async componentDidUpdate(prevProps) {
+      const { blogSearch, searchList } = this.props;
+      if (blogSearch !== prevProps.blogSearch) {
+        await searchList();
+        return true;
       }
+
+      return false;
     },
   }),
 )(ListView);

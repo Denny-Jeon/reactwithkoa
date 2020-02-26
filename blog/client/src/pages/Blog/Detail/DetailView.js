@@ -18,7 +18,7 @@ const DetailView = ({
       </CardHeader>
       <CardBody>
         {ReactHtmlParser(data.content)}
-        <StyleWrapper class="text-muted mt-3">
+        <StyleWrapper className="text-muted mt-3">
           {data.createdAt}
         </StyleWrapper>
       </CardBody>

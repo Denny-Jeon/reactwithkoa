@@ -68,7 +68,7 @@ const Page = (props) => {
 Page.propTypes = {
   className: PropTypes.string,
   title: PropTypes.string,
-  subTitle: PropTypes.string,
+  subTitle: PropTypes.node,
   children: PropTypes.node,
 };
 

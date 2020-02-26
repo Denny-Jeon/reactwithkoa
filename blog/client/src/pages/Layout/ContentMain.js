@@ -8,7 +8,7 @@ import {
 const ContentMain = () => (
   <>
     <Route exact path="/">
-      <Redirect to="/blog/list?search=" />
+      <Redirect to="/blog/list" />
     </Route>
     <Route exact path="/blog/list" component={BlogList} />
     <Route exact path="/blog/post" component={BlogPost} />

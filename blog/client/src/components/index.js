@@ -1,6 +1,7 @@
 import NavItemWrapper from "./NavItemWrapper";
 import { StyleWrapper } from "./StyleWrapper";
 import Page from "./Page";
+import { withBlog } from "./With";
 import {
   Timeline,
   TimelineItem,
@@ -20,4 +21,5 @@ export {
   TimelineItemHeader,
   TimelineItemBody,
   TimelineItemFooter,
+  withBlog,
 };

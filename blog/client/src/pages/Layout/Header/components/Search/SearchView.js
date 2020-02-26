@@ -61,6 +61,7 @@ const SearchView = ({ initialValues, handleSubmit, handleValidateSchema }) => (
     onSubmit={handleSubmit}
     validationSchema={handleValidateSchema()}
     validateOnMount
+    enableReinitialize
   >
     {
       // eslint-disable-next-line react/jsx-props-no-spreading
